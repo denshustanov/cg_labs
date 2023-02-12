@@ -1,17 +1,19 @@
-import numpy as np
+from mesh import Mesh
+from transform import Transform
+from copy import deepcopy
 
 
-class Object3D:
-    def __init__(self):
-        self.vertices = []
-        self.polygons = []
+class Object:
+    def __init__(self, mesh: Mesh):
+        self.transform = Transform.uniform()
+        self.__mesh = mesh
 
-    def read(self, path: str):
-        with open(path) as obj_file:
-            for line in obj_file.readlines():
-                t = line.split()
-                if t[0] == 'v':
-                    self.vertices.append(np.array(list(map(float, t[1:4]))))
-                if t[0] == 'f':
-                    polygon = [int(s.split('/')[0]) for s in t[1:]]
-                    self.polygons.append(polygon)
+    @property
+    def mesh(self) -> Mesh:
+        new_mesh = deepcopy(self.__mesh)
+
+        for i in range(len(new_mesh.vertices)):
+            new_mesh.vertices[i] = self.transform.transform(new_mesh.vertices[i])
+            # new_mesh.vertex_normals[i] = self.transform.rotate(new_mesh.vertex_normals[i])
+        return new_mesh
+

@@ -1,11 +1,7 @@
 import numpy as np
 from canvas import  Canvas
-from object import Object3D
-
-
-def stupid_project_vertex(v):
-    x, y = int(8000 * v[0] + 1000), int(-8000 * v[1] + 1000)
-    return x, y
+from mesh import Mesh
+from util import stupid_project_vertex
 
 
 def test_bresenham_satanic():
@@ -18,12 +14,12 @@ def test_bresenham_satanic():
         c.draw_line(points[i], points[(i + 2) % 5], (0, 0, 255))
         c.draw_line(points[i], points[(i + 1) % 5], (0, 0, 255))
 
-    path = 'pentagram.png'
+    path = 'imgs/pentagram.png'
     c.save(path)
 
 
 def test_obj_read_vertices():
-    o = Object3D()
+    o = Mesh()
     o.read('test.obj')
 
     print(len(o.vertices))
@@ -37,8 +33,8 @@ def test_obj_read_vertices():
     c.save('test_vertices.png')
 
 
-def test_obj_read_polygons():
-    o = Object3D()
+def test_obj_read_edges():
+    o = Mesh()
     o.read('test.obj')
 
     print(len(o.vertices))
@@ -57,4 +53,4 @@ def test_obj_read_polygons():
                 pass
 
 
-    c.save('test_polys.png')
+    c.save('test_edges.png')
