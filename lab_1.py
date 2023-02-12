@@ -24,7 +24,7 @@ def test_bresenham_satanic():
 
 def test_obj_read_vertices():
     o = Object3D()
-    o.read('Test.obj')
+    o.read('test.obj')
 
     print(len(o.vertices))
 
@@ -39,7 +39,7 @@ def test_obj_read_vertices():
 
 def test_obj_read_polygons():
     o = Object3D()
-    o.read('Test.obj')
+    o.read('test.obj')
 
     print(len(o.vertices))
 
