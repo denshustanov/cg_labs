@@ -75,6 +75,10 @@ class Canvas:
                 # except Exception:
                     # print(x, y, v1, v2, v3)
 
+    def clear(self):
+        h, w, c = self.__canvas.shape
+        self.__canvas = np.zeros((h, w, c))
+
     def save(self, path: str):
         cv2.imwrite(path, self.__canvas)
 

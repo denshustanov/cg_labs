@@ -9,21 +9,33 @@ class Mesh:
         self.polygons = []
         self.polygon_normals = []
         self.vertex_normals = []
+        self.vertex_textures = []
+        self.polygons_vertex_textures = []
 
     def read(self, path: str):
         with open(path) as obj_file:
             for line in obj_file.readlines():
                 t = line.split()
-                if t[0] == 'v':
-                    self.vertices.append(np.array(list(map(float, t[1:4]))))
-                if t[0] == 'f':
-                    polygon = [int(s.split('/')[0]) for s in t[1:]]
-                    self.polygons.append(polygon)
+                if len(t) > 1:
+                    if t[0] == 'v':
+                        self.vertices.append(np.array(list(map(float, t[1:4]))))
+                    if t[0] == 'f':
+                        polygon = [int(s.split('/')[0]) for s in t[1:4]]
+                        self.polygons.append(polygon)
+
+                        polygon_vt = [int(s.split('/')[1]) for s in t[1:4]]
+                        # print(polygon_vt)
+                        self.polygons_vertex_textures.append(polygon_vt)
+
+                    if t[0] == 'vt':
+                        self.vertex_textures.append((float(t[1]), float(t[2])))
             for i in range(len(self.polygons)):
                 self.polygon_normals.append(self.calc_polygon_normal(i))
-            for i in range(len(self.vertices)):
-                self.vertex_normals.append(self.calc_vertex_normal(i+1))
-        print(len(self.vertices), len(self.vertex_normals))
+            if len(self.vertices) != len(self.vertex_normals):
+                self.vertex_normals = []
+                for i in range(len(self.vertices)):
+                    self.vertex_normals.append(self.calc_vertex_normal(i+1))
+        print(len(self.vertices), len(self.vertex_normals), len(self.vertex_textures))
 
     def get_polygon_points(self):
         return [
