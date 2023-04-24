@@ -1,6 +1,6 @@
 import numpy as np
 
-
+# get baricentric coordinates of point in polygon
 def baricentric(point, polygon):
     v0, v1, v2 = polygon
     x0, y0 = v0
@@ -15,6 +15,7 @@ def baricentric(point, polygon):
     return l0, l1, l2
 
 
+# prject vertex on viewport
 def stupid_project_vertex(v, to_int=True):
     x, y = 8000 * v[0] + 1000, -8000 * v[1] + 1500
     if to_int:
@@ -22,6 +23,7 @@ def stupid_project_vertex(v, to_int=True):
     return x, y
 
 
+# get normal vector of polygon
 def normal(polygon):
     v0, v1, v2 = polygon
 
@@ -31,6 +33,6 @@ def normal(polygon):
 
     return np.cross((x1-x0, y1-y0, z1-z0), (x1-x2, y1-y2, z1-z2))
 
-
+# normalized scalar multiplication of two vectors
 def normal_scalar_mul(v1, v2):
     return np.dot(v1, v2) / (np.linalg.norm(v1)* np.linalg.norm(v2))

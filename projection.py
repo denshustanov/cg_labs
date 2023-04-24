@@ -3,12 +3,14 @@ from abc import ABC, abstractmethod
 import numpy as np
 
 
+# abstract class for point projectionn
 class Projection(ABC):
     @abstractmethod
     def project(self, point, w, h):
         pass
 
 
+# orto projection
 class StupidProjection(Projection):
     def __init__(self, x_shift, y_shift, x_scale, y_scale):
         self.x_shift = x_shift
@@ -21,6 +23,7 @@ class StupidProjection(Projection):
         return x, y
 
 
+# perspective projection
 class PerspectiveProjection(Projection):
     def __init__(self, fov_x, fov_y, near, far):
         self.fov_x = fov_x

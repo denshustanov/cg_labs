@@ -1,8 +1,12 @@
 import numpy as np
+from tqdm import tqdm
 
 from util import normal
 
 
+# mesh class
+# contains objet vertices, polygons and normals
+# implements .obj file reading and preparation
 class Mesh:
     def __init__(self):
         self.vertices = []
@@ -14,7 +18,7 @@ class Mesh:
 
     def read(self, path: str):
         with open(path) as obj_file:
-            for line in obj_file.readlines():
+            for line in tqdm(obj_file.readlines()):
                 t = line.split()
                 if len(t) > 1:
                     if t[0] == 'v':
@@ -29,11 +33,11 @@ class Mesh:
 
                     if t[0] == 'vt':
                         self.vertex_textures.append((float(t[1]), float(t[2])))
-            for i in range(len(self.polygons)):
+            for i in tqdm(range(len(self.polygons))):
                 self.polygon_normals.append(self.calc_polygon_normal(i))
             if len(self.vertices) != len(self.vertex_normals):
                 self.vertex_normals = []
-                for i in range(len(self.vertices)):
+                for i in tqdm(range(len(self.vertices))):
                     self.vertex_normals.append(self.calc_vertex_normal(i+1))
         print(len(self.vertices), len(self.vertex_normals), len(self.vertex_textures))
 

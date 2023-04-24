@@ -5,6 +5,8 @@ from transform import Transform
 from copy import deepcopy
 
 
+# render object class
+# contains mesh, transform and diffuse texture
 class Object:
     def __init__(self, mesh: Mesh, texture: np.ndarray = None):
         self.transform = Transform.uniform()

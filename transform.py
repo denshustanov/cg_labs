@@ -1,6 +1,8 @@
 import numpy as np
 
 
+# transform class
+# contains object position, euler angles and scale
 class Transform:
     def __init__(self, shift_x, shift_y, shift_z, rx, ry, rz, scale_x, scale_y, scale_z):
         self.shift_x = shift_x
@@ -15,11 +17,13 @@ class Transform:
 
         self.__rot_matrix = Transform.__rot_matrix(self.rot_x, self.rot_y, self.rot_z)
 
+    # apply transform to vertex
     def transform(self, vertex):
         scale_vec = np.array([self.scale_x, self.scale_y, self.scale_z])
         return np.multiply(np.dot(vertex, self.__rot_matrix), scale_vec) + \
             np.array([self.shift_x, self.shift_y, self.shift_z])
 
+    # rotate vector
     def rotate(self, vector):
         return np.dot(vector, self.__rot_matrix)
 
@@ -50,6 +54,7 @@ class Transform:
         self.__rot_z = angle
         self.__rot_matrix = Transform.__rot_matrix(self.rot_x, self.__rot_y, self.__rot_z)
 
+    # find rotation matrix from euler angles
     @staticmethod
     def __rot_matrix(x, y, z):
         a = np.array([

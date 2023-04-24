@@ -29,7 +29,6 @@ def perspective_test():
     obj.transform.shift_y = -2
 
     obj.transform.rot_y = 150 / 360 * 2 * np.pi
-    # obj.transform.rot_x = 90 / 360 * 2 * np.pi
 
     obj.transform.scale_x = 0.1
     obj.transform.scale_y = 0.1
@@ -37,11 +36,14 @@ def perspective_test():
 
     l2 = np.array([-1, -1, 1])
     renderer.render(obj, l2, None)
+    canvas.save('imgs/cat.png')
+
+    # # frames for gif
     # for i in range(360//5):
     #     obj.transform.rot_y = i*5 / 360 * 2 * np.pi
-    #     obj.transform.rot_x = i * 5 / 360 * 2 * np.pi
+    #     # obj.transform.rot_x = i * 5 / 360 * 2 * np.pi
     #     renderer.render(obj, l2, None)
-    canvas.save('imgs/cat.png')
+    #     canvas.save(f'imgs/vid_cat/{i}.png')
 
 
 if __name__ == '__main__':

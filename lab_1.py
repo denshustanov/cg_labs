@@ -4,6 +4,7 @@ from mesh import Mesh
 from util import stupid_project_vertex
 
 
+# draw lines with bresenham algorithm
 def test_bresenham_satanic():
     c = Canvas(100, 100, 3)
     r = 30
@@ -17,7 +18,7 @@ def test_bresenham_satanic():
     path = 'imgs/pentagram.png'
     c.save(path)
 
-
+# read obj file and render mesh vertices
 def test_obj_read_vertices():
     o = Mesh()
     o.read('test.obj')
@@ -32,7 +33,7 @@ def test_obj_read_vertices():
 
     c.save('test_vertices.png')
 
-
+# read obj file and render mesh edges
 def test_obj_read_edges():
     o = Mesh()
     o.read('test.obj')

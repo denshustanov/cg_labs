@@ -5,6 +5,8 @@ from typing import Iterable
 from util import baricentric
 
 
+# viewport class
+# contains image data and z buffer
 class Canvas:
     def __init__(self, w: int, h: int, c: int):
         self.__canvas = np.zeros((h, w, c))
@@ -18,6 +20,7 @@ class Canvas:
         for i in range(c):
             self.__canvas[y, x, i] = v[i]
 
+    # bresenham algorithm
     def draw_line(self, start, end, color):
         x0, y0 = start
         x1, y1 = end
@@ -54,6 +57,7 @@ class Canvas:
                 y += 1 if y1 > y0 else -1
                 error -= 1
 
+    # triangle rasterisation
     def draw_triangle(self, v1, v2, v3, color):
         x1, y1 = v1
         x2, y2 = v2
@@ -63,8 +67,8 @@ class Canvas:
 
         x_min = int(max(0, min(x1, x2, x3)))
         y_min = int(max(0, min(y1, y2, y3)))
-        x_max = int(min(w, max(x1, x2, x3)))
-        y_max = int(min(h, max(y1, y2, y3)))
+        x_max = int(min(w-1, max(x1, x2, x3)))
+        y_max = int(min(h-1, max(y1, y2, y3)))
 
         for x in range(x_min, x_max + 1):
             for y in range(y_min, y_max + 1):
