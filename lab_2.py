@@ -15,7 +15,7 @@ def obj_polys_test():
 
     c = Canvas(2000, 2000, 3)
     l = np.array([0, 0, 1])
-    l2 = np.array([0, 0, 1])
+    l2 = np.array([-1, -1, -1])
     l2_norm = np.linalg.norm(l2)
     for polygon in tqdm(o.polygons):
 
